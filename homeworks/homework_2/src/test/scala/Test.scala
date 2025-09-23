@@ -17,5 +17,13 @@ object Test extends TestSuite{
             assert(Exercises.sumOfDivBy3Or5(5, 2) == 0)
             assert(Exercises.sumOfDivBy3Or5(2147483643, 2147483646) == 2147483643L + 2147483645 + 2147483646)
         }
+        'test_primeFactor - {
+            assert(Exercises.primeFactor(2) == Seq(2))
+            assert(Exercises.primeFactor(997) == Seq(997))
+            assert(Exercises.primeFactor(80) == Seq(2, 5))
+            assert(Exercises.primeFactor(39215) == Seq(5, 11, 23, 31))
+            assert(Exercises.primeFactor(math.pow(3, 10).toInt) == Seq(3))
+            intercept[IllegalArgumentException](Exercises.primeFactor(1))
+        }
     }
 }
