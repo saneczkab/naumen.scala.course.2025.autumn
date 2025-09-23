@@ -1,3 +1,5 @@
+import scala.annotation.tailrec
+
 object Exercises {
 
     /*ПРИМЕР*/
@@ -34,7 +36,25 @@ object Exercises {
     Число 80 раскладывается на множители 1 * 2 * 2 * 2 * 2 * 5, результат выполнения функции => Seq(2, 5).
     Число 98 можно разложить на множители 1 * 2 * 7 * 7, результат выполнения функции => Seq(2, 7).*/
     /*Реализовать юнит-тесты в src/test/scala для данной функции.*/
-    def primeFactor(number: Int): Seq[Int] = ???
+    def primeFactor(number: Int): Seq[Int] = {
+      if (number < 2) {
+        throw new IllegalArgumentException("Number must be greater than 1!")
+      }
+
+      factorize(number, 2, Seq())
+    }
+
+    @tailrec
+    private def factorize(number: Int, divider: Int, dividers: Seq[Int]): Seq[Int] = {
+      if (number < 2) {
+        dividers
+      } else if (number % divider == 0) {
+        val newDividers = if (dividers.contains(divider)) dividers else dividers :+ divider
+        factorize(number / divider, divider, newDividers)
+      } else {
+        factorize(number, divider + 1, dividers)
+      }
+    }
 
 
 
