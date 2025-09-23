@@ -15,7 +15,8 @@ object Test extends TestSuite{
             assert(Exercises.sumOfDivBy3Or5(1, 2) == 0)
             assert(Exercises.sumOfDivBy3Or5(3, 3) == 3)
             assert(Exercises.sumOfDivBy3Or5(5, 2) == 0)
-            assert(Exercises.sumOfDivBy3Or5(2147483643, 2147483646) == 2147483643L + 2147483645 + 2147483646)
+            val bigNum = math.pow(2, 30).toInt // 1 073 741 824
+            assert(Exercises.sumOfDivBy3Or5(bigNum, bigNum + 3) == bigNum.toLong + 1 + bigNum + 2)
         }
         'test_primeFactor - {
             assert(Exercises.primeFactor(2) == Seq(2))
