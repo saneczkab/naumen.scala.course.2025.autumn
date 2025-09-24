@@ -61,6 +61,13 @@ object Test extends TestSuite{
             assertApprox(orthogonalVecSumScalar, 0)
             assertApprox(orthogonalVecSumCos, 0)
         }
+        'test_sortByHeavyweight - {
+            assert(Exercises.sortByHeavyweight(Map()) == Seq())
+            assert(Exercises.sortByHeavyweight(Map("Test" -> (1, 1))) == Seq("Test"))
+
+            val balls = Map("First" -> (1, 1.1), "Second" -> (2, 1.1), "Third" -> (1, 2.2))
+            assert(Exercises.sortByHeavyweight(balls) == Seq("First", "Third", "Second"))
+        }
     }
 
     def assertApprox(actual: Double, expected: Double, epsilon: Double = 1e-9): Unit =
