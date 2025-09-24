@@ -26,25 +26,39 @@ object Test extends TestSuite{
             assert(Exercises.primeFactor(math.pow(3, 10).toInt) == Seq(3))
             intercept[IllegalArgumentException](Exercises.primeFactor(1))
         }
-        'test_sumScalars - {
-            val simpleVec0 = Exercises.Vector2D(1, 2)
-            val simpleVec1 = Exercises.Vector2D(3, 4)
-            val simpleVec2 = Exercises.Vector2D(5, 6)
-            val simpleVec3 = Exercises.Vector2D(7, 8)
-            assert(Exercises.sumScalars(simpleVec0, simpleVec1, simpleVec2, simpleVec3) == 94.0)
-
+        'test_sumScalarsSumCosines - {
+            val simpleVec0 = Exercises.Vector2D(1, 1)
+            val simpleVec1 = Exercises.Vector2D(2, 2)
+            val simpleVec2 = Exercises.Vector2D(3, 3)
+            val simpleVec3 = Exercises.Vector2D(4, 4)
             val zeroVec = Exercises.Vector2D(0, 0)
-            assert(Exercises.sumScalars(zeroVec, simpleVec0, simpleVec1, zeroVec) == 0.0)
-
-            val negativeVec0 = Exercises.Vector2D(-1, -2)
-            val negativeVec1 = Exercises.Vector2D(-3, -4)
-            assert(Exercises.sumScalars(negativeVec0, simpleVec0, negativeVec1, simpleVec1) == -30.0)
-
+            val negativeVec0 = Exercises.Vector2D(-1, -1)
+            val negativeVec1 = Exercises.Vector2D(-2, -2)
             val orthogonalVec0 = Exercises.Vector2D(1, 0)
             val orthogonalVec1 = Exercises.Vector2D(0, 1)
             val orthogonalVec2 = Exercises.Vector2D(2, 3)
             val orthogonalVec3 = Exercises.Vector2D(-3, 2)
-            assert(Exercises.sumScalars(orthogonalVec0, orthogonalVec1, orthogonalVec2, orthogonalVec3) == 0.0)
+            val epsilon = 1e-9
+
+            val simpleVecSumScalar = Exercises.sumScalars(simpleVec0, simpleVec1, simpleVec2, simpleVec3)
+            val simpleVecSumCos = Exercises.sumCosines(simpleVec0, simpleVec1, simpleVec2, simpleVec3)
+            assert(math.abs(simpleVecSumScalar - 28) < epsilon)
+            assert(math.abs(simpleVecSumCos - 2) < epsilon)
+
+            val zeroVecSumScalar = Exercises.sumScalars(zeroVec, simpleVec0, simpleVec1, zeroVec)
+            val zeroVecSumCos = Exercises.sumCosines(zeroVec, simpleVec0, simpleVec1, zeroVec)
+            assert(math.abs(zeroVecSumScalar) < epsilon)
+            assert(zeroVecSumCos.isNaN)
+
+            val negativeVecSumScalar = Exercises.sumScalars(negativeVec0, simpleVec0, negativeVec1, simpleVec1)
+            val negativeVecSumCos = Exercises.sumCosines(negativeVec0, simpleVec0, negativeVec1, simpleVec1)
+            assert(math.abs(negativeVecSumScalar + 10) < epsilon)
+            assert(math.abs(negativeVecSumCos + 2) < epsilon)
+
+            val orthogonalVecSumScalar = Exercises.sumScalars(orthogonalVec0, orthogonalVec1, orthogonalVec2, orthogonalVec3)
+            val orthogonalVecSumCos = Exercises.sumCosines(orthogonalVec0, orthogonalVec1, orthogonalVec2, orthogonalVec3)
+            assert(math.abs(orthogonalVecSumScalar) < epsilon)
+            assert(math.abs(orthogonalVecSumCos) < epsilon)
         }
     }
 }
