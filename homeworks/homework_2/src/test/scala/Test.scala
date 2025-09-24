@@ -26,5 +26,25 @@ object Test extends TestSuite{
             assert(Exercises.primeFactor(math.pow(3, 10).toInt) == Seq(3))
             intercept[IllegalArgumentException](Exercises.primeFactor(1))
         }
+        'test_sumScalars - {
+            val simpleVec0 = Exercises.Vector2D(1, 2)
+            val simpleVec1 = Exercises.Vector2D(3, 4)
+            val simpleVec2 = Exercises.Vector2D(5, 6)
+            val simpleVec3 = Exercises.Vector2D(7, 8)
+            assert(Exercises.sumScalars(simpleVec0, simpleVec1, simpleVec2, simpleVec3) == 94.0)
+
+            val zeroVec = Exercises.Vector2D(0, 0)
+            assert(Exercises.sumScalars(zeroVec, simpleVec0, simpleVec1, zeroVec) == 0.0)
+
+            val negativeVec0 = Exercises.Vector2D(-1, -2)
+            val negativeVec1 = Exercises.Vector2D(-3, -4)
+            assert(Exercises.sumScalars(negativeVec0, simpleVec0, negativeVec1, simpleVec1) == -30.0)
+
+            val orthogonalVec0 = Exercises.Vector2D(1, 0)
+            val orthogonalVec1 = Exercises.Vector2D(0, 1)
+            val orthogonalVec2 = Exercises.Vector2D(2, 3)
+            val orthogonalVec3 = Exercises.Vector2D(-3, 2)
+            assert(Exercises.sumScalars(orthogonalVec0, orthogonalVec1, orthogonalVec2, orthogonalVec3) == 0.0)
+        }
     }
 }
