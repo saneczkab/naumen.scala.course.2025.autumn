@@ -38,27 +38,31 @@ object Test extends TestSuite{
             val orthogonalVec1 = Exercises.Vector2D(0, 1)
             val orthogonalVec2 = Exercises.Vector2D(2, 3)
             val orthogonalVec3 = Exercises.Vector2D(-3, 2)
-            val epsilon = 1e-9
 
             val simpleVecSumScalar = Exercises.sumScalars(simpleVec0, simpleVec1, simpleVec2, simpleVec3)
             val simpleVecSumCos = Exercises.sumCosines(simpleVec0, simpleVec1, simpleVec2, simpleVec3)
-            assert(math.abs(simpleVecSumScalar - 28) < epsilon)
-            assert(math.abs(simpleVecSumCos - 2) < epsilon)
+            assertApprox(simpleVecSumScalar, 28)
+            assertApprox(simpleVecSumCos, 2)
 
             val zeroVecSumScalar = Exercises.sumScalars(zeroVec, simpleVec0, simpleVec1, zeroVec)
             val zeroVecSumCos = Exercises.sumCosines(zeroVec, simpleVec0, simpleVec1, zeroVec)
-            assert(math.abs(zeroVecSumScalar) < epsilon)
+            assertApprox(zeroVecSumScalar, 0)
             assert(zeroVecSumCos.isNaN)
 
             val negativeVecSumScalar = Exercises.sumScalars(negativeVec0, simpleVec0, negativeVec1, simpleVec1)
             val negativeVecSumCos = Exercises.sumCosines(negativeVec0, simpleVec0, negativeVec1, simpleVec1)
-            assert(math.abs(negativeVecSumScalar + 10) < epsilon)
-            assert(math.abs(negativeVecSumCos + 2) < epsilon)
+            assertApprox(negativeVecSumScalar, -10)
+            assertApprox(negativeVecSumCos, -2)
 
-            val orthogonalVecSumScalar = Exercises.sumScalars(orthogonalVec0, orthogonalVec1, orthogonalVec2, orthogonalVec3)
-            val orthogonalVecSumCos = Exercises.sumCosines(orthogonalVec0, orthogonalVec1, orthogonalVec2, orthogonalVec3)
-            assert(math.abs(orthogonalVecSumScalar) < epsilon)
-            assert(math.abs(orthogonalVecSumCos) < epsilon)
+            val orthogonalVecSumScalar =
+              Exercises.sumScalars(orthogonalVec0, orthogonalVec1, orthogonalVec2, orthogonalVec3)
+            val orthogonalVecSumCos =
+              Exercises.sumCosines(orthogonalVec0, orthogonalVec1, orthogonalVec2, orthogonalVec3)
+            assertApprox(orthogonalVecSumScalar, 0)
+            assertApprox(orthogonalVecSumCos, 0)
         }
     }
+
+    def assertApprox(actual: Double, expected: Double, epsilon: Double = 1e-9): Unit =
+      assert(math.abs(actual - expected) < epsilon)
 }
