@@ -97,6 +97,24 @@ object Exercises {
             "Chrome" ->   (3,   7.18),   "Cesium" ->    (7,   1.873), "Zirconium" -> (3,   6.45)
         )
 
-    def sortByHeavyweight(ballsArray: Map[String, (Int, Double)] = balls): Seq[String] = ???
+    def sortByHeavyweight(ballsArray: Map[String, (Int, Double)] = balls): Seq[String] =
+      ballsArray.keys.toSeq.sortWith((first, second) => isFirstBallLighter(first, second, ballsArray))
 
+    def getBallVolume(radius: Double): Double = java.lang.Math.PI * Math.pow(radius, 3) * 4 / 3
+
+    def getMass(volume: Double, density: Double): Double = volume * density
+
+    def isFirstBallLighter(first: String, second: String, ballsArray: Map[String, (Int, Double)]): Boolean = {
+      val firstBallRadius = ballsArray(first)._1
+      val firstBallDensity = ballsArray(first)._2
+      val secondBallRadius = ballsArray(second)._1
+      val secondBallDensity = ballsArray(second)._2
+
+      val firstBallVolume = getBallVolume(firstBallRadius)
+      val firstBallMass = getMass(firstBallVolume, firstBallDensity)
+      val secondBallVolume = getBallVolume(secondBallRadius)
+      val secondBallMass = getMass(secondBallVolume, secondBallDensity)
+
+      firstBallMass < secondBallMass
+    }
 }
